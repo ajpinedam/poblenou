@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "Poblenou",
+  "display": "standalone",
+  "name": "Poblenou",
+  "short_name": "Poblenou",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
