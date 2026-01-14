@@ -1,4 +1,4 @@
-﻿<Page x:Class="Poblenou.Presentation.MainPage"
+﻿<Page xmlns:hd="using:Uno.UI.HotDesign" xmlns:markup="using:Uno.UI.Markup" x:Class="Poblenou.Presentation.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:Poblenou.Presentation"
@@ -7,24 +7,209 @@
       xmlns:um="using:Uno.Material"
       NavigationCacheMode="Required"
       Background="{ThemeResource BackgroundBrush}">
-  <ScrollViewer IsTabStop="True">
-    <Grid utu:SafeArea.Insets="VisibleBounds">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition />
-      </Grid.RowDefinitions>
-      <utu:NavigationBar Content="{Binding Title}" />
-
-      <StackPanel Grid.Row="1"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Spacing="16">
-        <TextBox Text="{Binding Name, Mode=TwoWay}"
-            PlaceholderText="Enter your name:" />
-        <Button Content="Go to Second Page"
-            AutomationProperties.AutomationId="SecondPageButton"
-            Command="{Binding GoToSecond}" />
-      </StackPanel>
+  <Grid Background="{ThemeResource BrushBackground}">
+<Grid.DataContext>
+<markup:FromJson>
+<markup:FromJson.Source><![CDATA[
+          {
+            "places": [
+              {
+                "name": "Sagrada Família",
+                "description": "Gaudí's unfinished masterpiece, a breathtaking basilica combining Gothic and Art Nouveau forms.",
+                "imageUrl": "https://images.pexels.com/photos/7008803/pexels-photo-7008803.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "category": "Architecture"
+              },
+              {
+                "name": "Park Güell",
+                "description": "A whimsical public park filled with colorful mosaics and stunning city views designed by Gaudí.",
+                "imageUrl": "https://images.pexels.com/photos/14793755/pexels-photo-14793755.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "category": "Park"
+              },
+              {
+                "name": "Casa Batlló",
+                "description": "A vibrant modernist building showcasing Gaudí's organic architectural vision on Passeig de Gràcia.",
+                "imageUrl": "https://images.pexels.com/photos/24839109/pexels-photo-24839109.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "category": "Architecture"
+              },
+              {
+                "name": "Gothic Quarter",
+                "description": "Medieval streets filled with history, charm, and Barcelona's authentic soul.",
+                "imageUrl": "https://images.pexels.com/photos/2379980/pexels-photo-2379980.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "category": "Historic"
+              },
+              {
+                "name": "Camp Nou",
+                "description": "Home of FC Barcelona, one of the largest and most iconic football stadiums in the world.",
+                "imageUrl": "https://images.pexels.com/photos/27348423/pexels-photo-27348423.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "category": "Sports"
+              },
+              {
+                "name": "El Born",
+                "description": "Trendy neighborhood with narrow cobblestone streets, boutiques, and vibrant nightlife.",
+                "imageUrl": "https://images.pexels.com/photos/3325720/pexels-photo-3325720.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "category": "Neighborhood"
+              },
+              {
+                "name": "Barceloneta Beach",
+                "description": "Golden sandy beach along the Mediterranean, perfect for sun, sea, and seafood.",
+                "imageUrl": "https://images.pexels.com/photos/35636471/pexels-photo-35636471.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "category": "Beach"
+              },
+              {
+                "name": "Montjuïc",
+                "description": "A historic hill offering panoramic views, gardens, museums, and the Olympic Stadium.",
+                "imageUrl": "https://images.pexels.com/photos/15975145/pexels-photo-15975145.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+                "category": "Viewpoint"
+              }
+            ]
+          }
+          ]]></markup:FromJson.Source></markup:FromJson></Grid.DataContext>
+<ScrollViewer>
+<StackPanel>
+<Grid Height="520">
+<Grid.Background>
+<LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+    <GradientStop Color="{ThemeResource ColorPrimary}" Offset="0" />
+    <GradientStop Color="{ThemeResource ColorSecondary}" Offset="1" />
+</LinearGradientBrush></Grid.Background>
+<Grid VerticalAlignment="Center" Padding="64,0">
+<StackPanel Spacing="24" MaxWidth="700">
+<TextBlock Style="{StaticResource HeroTitleStyle}" Text="Iconic Barcelona" x:Uid="HeroTitle" />
+    <TextBlock Style="{StaticResource HeroSubtitleStyle}" Text="Discover the architectural wonders, vibrant culture, and Mediterranean charm of Catalunya&apos;s capital city" x:Uid="HeroSubtitle" />
+    <StackPanel Margin="0,8,0,0" Spacing="16" Orientation="Horizontal">
+    <Border Translation="0,0,16" Padding="24,12" CornerRadius="8" Background="{StaticResource BrushTertiary}"><Border.Shadow>
+      <ThemeShadow /></Border.Shadow>
+        <TextBlock Foreground="{StaticResource BrushOnTertiary}" FontWeight="SemiBold" FontSize="16" Text="Explore Places" x:Uid="ExploreButton" />
+    </Border>
+    </StackPanel>
+</StackPanel>
+</Grid>
+</Grid>
+<StackPanel Background="{StaticResource BrushBackground}" Spacing="32" Padding="64,64,64,80">
+<TextBlock Style="{StaticResource SectionTitleStyle}" Text="Must-Visit Landmarks" x:Uid="SectionTitle" />
+    <ItemsControl ItemsSource="{Binding places}">
+    <ItemsControl.ItemsPanel>
+    <ItemsPanelTemplate>
+        <VariableSizedWrapGrid MaximumRowsOrColumns="3" ItemHeight="420" ItemWidth="380" Orientation="Horizontal" />
+    </ItemsPanelTemplate></ItemsControl.ItemsPanel>
+    <ItemsControl.ItemTemplate>
+    <DataTemplate>
+        <Border Translation="0,0,24" Margin="0,0,24,24" CornerRadius="16" Background="{StaticResource BrushSurface}"><Border.Shadow>
+          <ThemeShadow /></Border.Shadow>
+            <Grid><Grid.RowDefinitions>
+              <RowDefinition Height="240" />
+              <RowDefinition Height="*" /></Grid.RowDefinitions>
+                <Border CornerRadius="16,16,0,0" Grid.Row="0"><Border.Background>
+                  <ImageBrush ImageSource="{Binding imageUrl}" Stretch="UniformToFill" /></Border.Background>
+                    <Border Margin="16" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="12,6" CornerRadius="8" Background="{StaticResource BrushAccent}">
+                      <TextBlock Foreground="{StaticResource BrushOnTertiary}" FontWeight="SemiBold" FontSize="12" Text="{Binding category}" />
+                    </Border>
+                </Border>
+                <StackPanel Spacing="12" Padding="24" Grid.Row="1">
+                <TextBlock Style="{StaticResource CardTitleStyle}" Text="{Binding name}" />
+                    <TextBlock Style="{StaticResource CardDescriptionStyle}" Text="{Binding description}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </DataTemplate></ItemsControl.ItemTemplate>
+    </ItemsControl>
+    <Grid Margin="0,32,0,0">
+    <Border Style="{StaticResource IconCardStyle}">
+    <StackPanel Padding="32,24" HorizontalAlignment="Center" Spacing="16">
+    <TextBlock HorizontalAlignment="Center" Foreground="{StaticResource BrushOnSurface}" FontWeight="SemiBold" FontSize="24" Text="Experience the Magic of Barcelona" x:Uid="FooterTitle" />
+        <TextBlock HorizontalAlignment="Center" Opacity="0.7" Foreground="{StaticResource BrushOnSurface}" FontSize="16" Text="From Gaudí&apos;s architectural marvels to sun-soaked Mediterranean beaches" x:Uid="FooterDescription" />
+    </StackPanel>
+    </Border>
     </Grid>
-  </ScrollViewer>
+</StackPanel>
+</StackPanel>
+</ScrollViewer>
+</Grid>
+  <Page.Resources>
+  <ResourceDictionary>
+    <ResourceDictionary.ThemeDictionaries>
+    <ResourceDictionary x:Key="Light">
+    <Color x:Key="ColorPrimary">#0A3D62</Color>
+    <Color x:Key="ColorSecondary">#1287A5</Color>
+    <Color x:Key="ColorTertiary">#E8872E</Color>
+    <Color x:Key="ColorAccent">#D35400</Color>
+    <Color x:Key="ColorSurface">#FFFFFF</Color>
+    <Color x:Key="ColorSurfaceVariant">#F8F9FA</Color>
+    <Color x:Key="ColorBackground">#F4F6F8</Color>
+    <Color x:Key="ColorOnPrimary">#FFFFFF</Color>
+    <Color x:Key="ColorOnSecondary">#FFFFFF</Color>
+    <Color x:Key="ColorOnTertiary">#FFFFFF</Color>
+    <Color x:Key="ColorOnSurface">#1A1A1A</Color>
+    <Color x:Key="ColorOnBackground">#2C3E50</Color>
+    <Color x:Key="ColorOutline">#DFE4E8</Color>
+    <Color x:Key="ColorOutlineVariant">#ECF0F1</Color></ResourceDictionary>
+    <ResourceDictionary x:Key="Dark">
+    <Color x:Key="ColorPrimary">#3498DB</Color>
+    <Color x:Key="ColorSecondary">#5DADE2</Color>
+    <Color x:Key="ColorTertiary">#F39C12</Color>
+    <Color x:Key="ColorAccent">#E67E22</Color>
+    <Color x:Key="ColorSurface">#1E2A38</Color>
+    <Color x:Key="ColorSurfaceVariant">#2C3E50</Color>
+    <Color x:Key="ColorBackground">#151E28</Color>
+    <Color x:Key="ColorOnPrimary">#FFFFFF</Color>
+    <Color x:Key="ColorOnSecondary">#FFFFFF</Color>
+    <Color x:Key="ColorOnTertiary">#FFFFFF</Color>
+    <Color x:Key="ColorOnSurface">#E8E8E8</Color>
+    <Color x:Key="ColorOnBackground">#ECF0F1</Color>
+    <Color x:Key="ColorOutline">#34495E</Color>
+    <Color x:Key="ColorOutlineVariant">#2C3E50</Color></ResourceDictionary></ResourceDictionary.ThemeDictionaries>
+    <SolidColorBrush x:Key="BrushPrimary" Color="{ThemeResource ColorPrimary}" />
+    <SolidColorBrush x:Key="BrushSecondary" Color="{ThemeResource ColorSecondary}" />
+    <SolidColorBrush x:Key="BrushTertiary" Color="{ThemeResource ColorTertiary}" />
+    <SolidColorBrush x:Key="BrushAccent" Color="{ThemeResource ColorAccent}" />
+    <SolidColorBrush x:Key="BrushSurface" Color="{ThemeResource ColorSurface}" />
+    <SolidColorBrush x:Key="BrushSurfaceVariant" Color="{ThemeResource ColorSurfaceVariant}" />
+    <SolidColorBrush x:Key="BrushBackground" Color="{ThemeResource ColorBackground}" />
+    <SolidColorBrush x:Key="BrushOnPrimary" Color="{ThemeResource ColorOnPrimary}" />
+    <SolidColorBrush x:Key="BrushOnSecondary" Color="{ThemeResource ColorOnSecondary}" />
+    <SolidColorBrush x:Key="BrushOnTertiary" Color="{ThemeResource ColorOnTertiary}" />
+    <SolidColorBrush x:Key="BrushOnSurface" Color="{ThemeResource ColorOnSurface}" />
+    <SolidColorBrush x:Key="BrushOnBackground" Color="{ThemeResource ColorOnBackground}" />
+    <SolidColorBrush x:Key="BrushOutline" Color="{ThemeResource ColorOutline}" />
+    <SolidColorBrush x:Key="BrushOutlineVariant" Color="{ThemeResource ColorOutlineVariant}" />
+    <Style x:Key="HeroTitleStyle" TargetType="TextBlock">
+    <Style.Setters>
+    <Setter Property="FontSize" Value="56" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Foreground" Value="{StaticResource BrushOnPrimary}" />
+    <Setter Property="TextWrapping" Value="Wrap" /></Style.Setters></Style>
+    <Style x:Key="HeroSubtitleStyle" TargetType="TextBlock">
+    <Style.Setters>
+    <Setter Property="FontSize" Value="20" />
+    <Setter Property="FontWeight" Value="Normal" />
+    <Setter Property="Foreground" Value="{StaticResource BrushOnPrimary}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="Opacity" Value="0.95" /></Style.Setters></Style>
+    <Style x:Key="SectionTitleStyle" TargetType="TextBlock">
+    <Style.Setters>
+    <Setter Property="FontSize" Value="32" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource BrushOnBackground}" /></Style.Setters></Style>
+    <Style x:Key="CardTitleStyle" TargetType="TextBlock">
+    <Style.Setters>
+    <Setter Property="FontSize" Value="22" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Foreground" Value="{StaticResource BrushOnSurface}" />
+    <Setter Property="TextWrapping" Value="Wrap" /></Style.Setters></Style>
+    <Style x:Key="CardDescriptionStyle" TargetType="TextBlock">
+    <Style.Setters>
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="FontWeight" Value="Normal" />
+    <Setter Property="Foreground" Value="{StaticResource BrushOnSurface}" />
+    <Setter Property="Opacity" Value="0.7" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+    <Setter Property="LineHeight" Value="20" /></Style.Setters></Style>
+    <Style x:Key="IconCardStyle" TargetType="Border">
+    <Style.Setters>
+    <Setter Property="Background" Value="{StaticResource BrushSurface}" />
+    <Setter Property="CornerRadius" Value="12" />
+    <Setter Property="Padding" Value="20" />
+    <Setter Property="BorderBrush" Value="{StaticResource BrushOutline}" />
+    <Setter Property="BorderThickness" Value="1" /></Style.Setters></Style></ResourceDictionary>
+  </Page.Resources>
 </Page>
